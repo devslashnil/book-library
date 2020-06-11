@@ -1,0 +1,98 @@
+[
+  {
+    "id": "9b7fa424-a2a6-42ca-8205-921541e82ef0",
+    "title": "Мёртвые души",
+    "author": "Николай Гоголь",
+    "published": 1842,
+    "publisher": "Гранат",
+    "coverSrc": "https://www.100bestbooks.ru/pictures/books/Dead_Souls_Gogol_1842.jpg"
+  },
+  {
+    "id": "760a2d2f-aacf-488d-90cc-704fdf5ac3f1",
+    "title": "Герой нашего времени",
+    "author": "Михаил Лермонтов",
+    "published": 1839,
+    "publisher": "Знание",
+    "coverSrc": "https://www.100bestbooks.ru/pictures/books/Geroy_nashego_vremeni.gif"
+  },
+  {
+    "id": "9fbe7a42-5a62-4a62-8246-46e017e34e57",
+    "title": "Ревизор",
+    "author": "Николай Гоголь",
+    "published": 1836,
+    "publisher": "Азбука",
+    "coverSrc": "https://www.100bestbooks.ru/pictures/books/Nikolai_Gogol_Revizor.jpg"
+  },
+  {
+    "id": "7ef2a720-15d8-45c6-b5bf-2423cd0cacc9",
+    "title": "Бедные люди",
+    "author": "Федор Достоевский",
+    "published": 1845,
+    "publisher": "Знание",
+    "coverSrc": "https://www.100bestbooks.ru/pictures/books/Poor_Folk.png"
+  },
+  {
+    "id": "215c30d1-3a7f-4abd-a6b6-32fbedb3083a",
+    "title": "Тихий Дон",
+    "author": "Михаил Шолохов",
+    "published": 1926,
+    "publisher": "Азбука",
+    "coverSrc": "https://www.100bestbooks.ru/pictures/books/Tihiy_Don.jpg"
+  },
+  {
+    "id": "770c0d85-bb76-439d-8253-b37e319978af",
+    "title": "Отцы и дети",
+    "author": "Иван Тургенев",
+    "published": 1860,
+    "publisher": "Радуга",
+    "coverSrc": "https://www.100bestbooks.ru/pictures/books/Turgenev_Otcy_i_deti.jpg"
+  },
+  {
+    "id": "64050af1-b2a7-4951-8eba-783e741fc135",
+    "title": "Евгений Онегин",
+    "author": "Александр Пушкин",
+    "published": 1825,
+    "publisher": "Радуга",
+    "coverSrc": "https://www.100bestbooks.ru/pictures/books/onegin.jpg"
+  },
+  {
+    "id": "7431b058-f7ad-40ef-8617-c5ed424d33ec",
+    "title": "Преступление и наказание",
+    "author": "Федор Достоевский",
+    "published": 1866,
+    "publisher": "Искусство",
+    "coverSrc": "https://www.100bestbooks.ru/pictures/books/crime_and_punishment.jpg"
+  },
+  {
+    "id": "d103b749-6351-4f5f-ac7b-3bd8b3512d4e",
+    "title": "Собачье сердце",
+    "author": "Михаил Булгаков",
+    "published": 1925,
+    "publisher": "Прогресс",
+    "coverSrc": "https://www.100bestbooks.ru/pictures/books/Dog_heart.jpg"
+  },
+  {
+    "id": "65afc8ef-b193-4b83-8ab8-41f315f51838",
+    "title": "Судьба человека",
+    "author": "Михаил Шолохов",
+    "published": 1957,
+    "publisher": "Книга",
+    "coverSrc": "https://www.100bestbooks.ru/pictures/books/Sholohov_Sudba_cheloveka.jpeg"
+  },
+  {
+    "id": "aa3e7f00-d3f0-49bc-b616-9e8a57738796",
+    "title": "Анна Каренина",
+    "author": "Лев Толстой",
+    "published": 1873,
+    "publisher": "Азбука",
+    "coverSrc": "https://www.100bestbooks.ru/pictures/books/AnnaKarenina.jpg"
+  },
+  {
+    "id": "27108913-0c6d-4921-9fad-21f9318e09c6",
+    "title": "Война и мир",
+    "author": "Лев Толстой",
+    "published": 1865,
+    "publisher": "Азбука",
+    "coverSrc": "https://www.100bestbooks.ru/pictures/books/War-and-peace_1873.gif"
+  }
+]
