@@ -1,19 +1,22 @@
 import { createSelector } from "reselect";
-import store from "store";
 import { isBookPassFilters } from "../utils";
 
-export const booksSelector = (state) =>
+export const booksSelector = (state) => state.books.entities;
+
+export const createBookIsFavoriteSelector = (id) => {
+  return createSelector(booksSelector, (books) => {
+    return books.getIn([id, "isFavorite"]);
+  });
+};
+
+export const booksArraySelector = (state) =>
   state.books.entities.valueSeq().toArray();
 
-/**
- * Very very inefficient way to do it, but otherwise need a lot more code
- * If it wasn't study projects I wouldn't let myself so many re-renders
- */
 export const favoritesBooksSelector = (state) =>
   state.books.entities
     .valueSeq()
     .toArray()
-    .filter((book) => store.get(book.id) && store.get(book.id).isFavorite);
+    .filter((book) => book.get("isFavorite"));
 
 export const filtersSelector = (state) => state.filters;
 
@@ -25,7 +28,7 @@ export const publishersSelector = (state) => state.publishers;
 export const authorsSelector = (state) => state.authors;
 
 export const filteredBooksSelector = createSelector(
-  booksSelector,
+  booksArraySelector,
   filtersSelector,
   (books, filters) => books.filter((book) => isBookPassFilters(book, filters))
 );
@@ -33,5 +36,6 @@ export const filteredBooksSelector = createSelector(
 export const filteredFavoritesBooksSelector = createSelector(
   favoritesBooksSelector,
   filtersSelector,
-  (books, filters) => books.filter((book) => isBookPassFilters(book, filters))
+  (books, filters, store) =>
+    books.filter((book) => isBookPassFilters(book, filters))
 );

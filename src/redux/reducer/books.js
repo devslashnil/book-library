@@ -9,6 +9,8 @@ import {
   SORT_BOOKS,
   RATING_ASCENDING_ORDER,
   RATING_DESCENDING_ORDER,
+  ADD_FAVORITE_BOOK,
+  REMOVE_FAVORITE_BOOK,
 } from "../../constants";
 
 const collator = new Intl.Collator(undefined, {
@@ -23,7 +25,7 @@ const BookRecord = Record({
   published: null,
   publisher: "",
   coverSrc: "",
-  isFavorite: false,
+  isFavorite: null,
 });
 
 const ReducerRecord = Record({
@@ -82,6 +84,18 @@ export default (state = new ReducerRecord(), action) => {
           if (aRating > bRating) return -1;
           return 0;
         })
+      );
+
+    case ADD_FAVORITE_BOOK:
+      return state.setIn(
+        ["entities", payload.book.get("id"), "isFavorite"],
+        true
+      );
+
+    case REMOVE_FAVORITE_BOOK:
+      return state.setIn(
+        ["entities", payload.book.get("id"), "isFavorite"],
+        false
       );
 
     default:

@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import BookCard from "../book-card";
 import { titleFilterSelector } from "../../redux/selectors";
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 export default function BookList({ books }) {
   const classes = useStyles();
   const mdSize = books.length > 3 ? 6 : 12;
-  const requestedTitle = useSelector(titleFilterSelector); // updates on each Search
+  const requestedTitle = useSelector(titleFilterSelector, shallowEqual); // updates on each Search
 
   return (
     <div>

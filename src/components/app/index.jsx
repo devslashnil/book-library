@@ -13,6 +13,7 @@ import {
   filteredBooksSelector,
   publishersSelector,
   filteredFavoritesBooksSelector,
+  favoritesBooksSelector,
 } from "../../redux/selectors";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,8 +29,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Content = ({ books, publishers, authors }) => {
+const Content = ({ publishers, authors, selector, equalityFn }) => {
   const classes = useStyles();
+  const books = useSelector(selector, equalityFn);
 
   return (
     <main role="main">
@@ -53,10 +55,9 @@ const Content = ({ books, publishers, authors }) => {
 
 export default function App() {
   const classes = useStyles();
-  const books = useSelector(filteredBooksSelector);
-  const favoriteBooks = useSelector(filteredFavoritesBooksSelector);
   const publishers = useSelector(publishersSelector, shallowEqual);
   const authors = useSelector(authorsSelector, shallowEqual);
+  const equalityFn = () => true; // because main page don't need to reload while you on it
 
   return (
     <div className={classes.root}>
@@ -66,14 +67,19 @@ export default function App() {
           path="/"
           exact
           render={() => (
-            <Content books={books} publishers={publishers} authors={authors} />
+            <Content
+              selector={filteredBooksSelector}
+              equalityFn={equalityFn}
+              publishers={publishers}
+              authors={authors}
+            />
           )}
         />
         <Route
           path="/favorites"
           render={() => (
             <Content
-              books={favoriteBooks}
+              selector={filteredFavoritesBooksSelector}
               publishers={publishers}
               authors={authors}
             />

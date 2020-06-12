@@ -1,9 +1,17 @@
 import { OrderedMap } from "immutable";
 import store from "store";
 
+export function isFavorite(book) {
+  return (store.get(book.id) && store.get(book.id).isFavorite) || false;
+}
+
 export function arrToMap(arr, ItemRecord) {
   return arr.reduce(
-    (acc, item) => acc.set(item.id, ItemRecord ? new ItemRecord(item) : item),
+    (acc, item) =>
+      acc.set(
+        item.id,
+        new ItemRecord({ ...item, isFavorite: isFavorite(item) })
+      ),
     new OrderedMap({})
   );
 }
