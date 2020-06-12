@@ -13,7 +13,6 @@ import {
   filteredBooksSelector,
   publishersSelector,
   filteredFavoritesBooksSelector,
-  favoritesBooksSelector,
 } from "../../redux/selectors";
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Content = ({ publishers, authors, selector, equalityFn }) => {
   const classes = useStyles();
-  const books = useSelector(selector, equalityFn);
+  const [books] = useSelector(selector, equalityFn);
 
   return (
     <main role="main">
@@ -53,11 +52,32 @@ const Content = ({ publishers, authors, selector, equalityFn }) => {
   );
 };
 
+/**
+ * allBooksEqualityFn can optimisation (get 12 renders)
+ * if click on several Favorite buttons too fast
+ * So it there only to show that efficiency not forgotten
+ */
+
 export default function App() {
   const classes = useStyles();
   const publishers = useSelector(publishersSelector, shallowEqual);
   const authors = useSelector(authorsSelector, shallowEqual);
-  const equalityFn = () => true; // because main page don't need to reload while you on it
+
+  // need only rerender main book
+  const allBooksEqualityFn = (a, b) => {
+    if (b[1] !== a[1]) return false;
+    if (b[2] !== a[2]) return false;
+    if (a.length !== b.length) return false;
+    const aIds = a[0].map((v) => v.get("id")).sort();
+    const bIds = b[0].map((v) => v.get("id")).sort();
+    for (let i = 0; i < aIds.length; ++i) {
+      if (aIds[i] !== bIds[i]) return false;
+    }
+    return true;
+  };
+
+  // need always rerender favorite books
+  const favoriteBooksEqualityFn = (a, b) => a === b;
 
   return (
     <div className={classes.root}>
@@ -69,7 +89,7 @@ export default function App() {
           render={() => (
             <Content
               selector={filteredBooksSelector}
-              equalityFn={equalityFn}
+              equalityFn={allBooksEqualityFn}
               publishers={publishers}
               authors={authors}
             />
@@ -81,6 +101,7 @@ export default function App() {
             <Content
               selector={filteredFavoritesBooksSelector}
               publishers={publishers}
+              equalityFn={favoriteBooksEqualityFn}
               authors={authors}
             />
           )}

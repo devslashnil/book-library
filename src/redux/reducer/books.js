@@ -26,65 +26,80 @@ const BookRecord = Record({
   publisher: "",
   coverSrc: "",
   isFavorite: null,
+  rating: 0,
 });
 
 const ReducerRecord = Record({
   entities: arrToMap(fixtures, BookRecord),
+  sortType: null,
 });
 
 export default (state = new ReducerRecord(), action) => {
   const { type, payload } = action;
   switch (type) {
     case SORT_BOOKS + ALPHABET_ASCENDING_ORDER:
-      return state.updateIn(["entities"], (entities) =>
-        entities.sort((a, b) =>
-          collator.compare(a.get("title"), b.get("title"))
+      return state
+        .updateIn(["entities"], (entities) =>
+          entities.sort((a, b) =>
+            collator.compare(a.get("title"), b.get("title"))
+          )
         )
-      );
+        .set("sortType", payload.orderConstant);
+
     case SORT_BOOKS + ALPHABET_DESCENDING_ORDER:
-      return state.updateIn(["entities"], (entities) =>
-        entities.sort((a, b) =>
-          collator.compare(b.get("title"), a.get("title"))
+      return state
+        .updateIn(["entities"], (entities) =>
+          entities.sort((a, b) =>
+            collator.compare(b.get("title"), a.get("title"))
+          )
         )
-      );
+        .set("sortType", payload.orderConstant);
     case SORT_BOOKS + DATE_ASCENDING_ORDER:
-      return state.updateIn(["entities"], (entities) =>
-        entities.sort((a, b) => {
-          if (a.get("published") > b.get("published")) return 1;
-          if (a.get("published") < b.get("published")) return -1;
-          return 0;
-        })
-      );
+      return state
+        .updateIn(["entities"], (entities) =>
+          entities.sort((a, b) => {
+            if (a.get("published") > b.get("published")) return 1;
+            if (a.get("published") < b.get("published")) return -1;
+            return 0;
+          })
+        )
+        .set("sortType", payload.orderConstant);
     case SORT_BOOKS + DATE_DESCENDING_ORDER:
-      return state.updateIn(["entities"], (entities) =>
-        entities.sort((a, b) => {
-          if (a.get("published") < b.get("published")) return 1;
-          if (a.get("published") > b.get("published")) return -1;
-          return 0;
-        })
-      );
+      return state
+        .updateIn(["entities"], (entities) =>
+          entities.sort((a, b) => {
+            if (a.get("published") < b.get("published")) return 1;
+            if (a.get("published") > b.get("published")) return -1;
+            return 0;
+          })
+        )
+        .set("sortType", payload.orderConstant);
 
     case SORT_BOOKS + RATING_ASCENDING_ORDER:
-      return state.updateIn(["entities"], (entities) =>
-        entities.sort((a, b) => {
-          const aRating = getBookRating(a);
-          const bRating = getBookRating(b);
-          if (aRating < bRating) return -1;
-          if (aRating > bRating) return 1;
-          return 0;
-        })
-      );
+      return state
+        .updateIn(["entities"], (entities) =>
+          entities.sort((a, b) => {
+            const aRating = getBookRating(a);
+            const bRating = getBookRating(b);
+            if (aRating < bRating) return -1;
+            if (aRating > bRating) return 1;
+            return 0;
+          })
+        )
+        .set("sortType", payload.orderConstant);
 
     case SORT_BOOKS + RATING_DESCENDING_ORDER:
-      return state.updateIn(["entities"], (entities) =>
-        entities.sort((a, b) => {
-          const aRating = getBookRating(a);
-          const bRating = getBookRating(b);
-          if (aRating < bRating) return 1;
-          if (aRating > bRating) return -1;
-          return 0;
-        })
-      );
+      return state
+        .updateIn(["entities"], (entities) =>
+          entities.sort((a, b) => {
+            const aRating = getBookRating(a);
+            const bRating = getBookRating(b);
+            if (aRating < bRating) return 1;
+            if (aRating > bRating) return -1;
+            return 0;
+          })
+        )
+        .set("sortType", payload.orderConstant);
 
     case ADD_FAVORITE_BOOK:
       return state.setIn(

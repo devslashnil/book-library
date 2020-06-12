@@ -5,12 +5,20 @@ export function isFavorite(book) {
   return (store.get(book.id) && store.get(book.id).isFavorite) || false;
 }
 
+export function getObjRating(obj) {
+  return (store.get(obj.id) && store.get(obj.id).rating) || 0;
+}
+
 export function arrToMap(arr, ItemRecord) {
   return arr.reduce(
     (acc, item) =>
       acc.set(
         item.id,
-        new ItemRecord({ ...item, isFavorite: isFavorite(item) })
+        new ItemRecord({
+          ...item,
+          isFavorite: isFavorite(item),
+          rating: getObjRating(item),
+        })
       ),
     new OrderedMap({})
   );
@@ -68,5 +76,5 @@ export function isBookPassFilters(book, filters) {
 }
 
 export function getBookRating(book) {
-  return (store.get(book.get("id")) && store.get(book.get("id")).rating) || 0;
+  return book.get("rating"); //(store.get(book.get("id")) && store.get(book.get("id")).rating) || 0;
 }

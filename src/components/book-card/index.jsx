@@ -10,7 +10,6 @@ import store from "store";
 import { useDispatch, useSelector } from "react-redux";
 import BookRating from "./book-rating";
 import { addFavoriteBook, removeFavoriteBook } from "../../redux/ac";
-import { createBookIsFavoriteSelector } from "../../redux/selectors";
 
 const useStyles = makeStyles({
   root: {
@@ -33,14 +32,12 @@ const useStyles = makeStyles({
 
 export default function BookCard({ book }) {
   const classes = useStyles();
-  const isFavorite = useSelector(createBookIsFavoriteSelector(book.get("id")));
+  const [isFavorite, setIsFavorite] = useState(book.get("isFavorite"));
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    if (
-      !store.get(book.get("id")) ||
-      store.get(book.get("id")).isFavorite === false
-    ) {
+    setIsFavorite(!isFavorite);
+    if (!book.get("isFavorite")) {
       dispatch(addFavoriteBook(book));
       store.set(book.get("id"), {
         ...store.get(book.get("id")),

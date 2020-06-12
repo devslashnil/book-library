@@ -1,11 +1,19 @@
 import { createSelector } from "reselect";
 import { isBookPassFilters } from "../utils";
 
+export const sortTypeSelector = (state) => state.filters.sortType;
+
 export const booksSelector = (state) => state.books.entities;
 
 export const createBookIsFavoriteSelector = (id) => {
   return createSelector(booksSelector, (books) => {
     return books.getIn([id, "isFavorite"]);
+  });
+};
+
+export const createBookRatingSelector = (id) => {
+  return createSelector(booksSelector, (books) => {
+    return books.getIn([id, "rating"]);
   });
 };
 
@@ -30,12 +38,19 @@ export const authorsSelector = (state) => state.authors;
 export const filteredBooksSelector = createSelector(
   booksArraySelector,
   filtersSelector,
-  (books, filters) => books.filter((book) => isBookPassFilters(book, filters))
+  (books, filters) => [
+    books.filter((book) => isBookPassFilters(book, filters)),
+    filters.sortType,
+    filters.title,
+  ]
 );
 
 export const filteredFavoritesBooksSelector = createSelector(
   favoritesBooksSelector,
   filtersSelector,
-  (books, filters, store) =>
-    books.filter((book) => isBookPassFilters(book, filters))
+  (books, filters) => [
+    books.filter((book) => isBookPassFilters(book, filters)),
+    filters.sortType,
+    filters.title,
+  ]
 );

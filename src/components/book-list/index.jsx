@@ -1,10 +1,12 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { shallowEqual, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import BookCard from "../book-card";
 import { titleFilterSelector } from "../../redux/selectors";
+import { Button } from "@material-ui/core";
+import { changeTitleFilter } from "../../redux/ac";
 
 const useStyles = makeStyles((theme) => ({
   warning: {
@@ -15,7 +17,12 @@ const useStyles = makeStyles((theme) => ({
 export default function BookList({ books }) {
   const classes = useStyles();
   const mdSize = books.length > 3 ? 6 : 12;
-  const requestedTitle = useSelector(titleFilterSelector, shallowEqual); // updates on each Search
+  const requestedTitle = useSelector(titleFilterSelector); // updates on each Search
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(changeTitleFilter(""));
+  };
 
   return (
     <div>
@@ -34,6 +41,17 @@ export default function BookList({ books }) {
               ничего не найдено!
             </Typography>
           </div>
+        )}
+        {books.length === 0 && requestedTitle.length > 0 && (
+          <Button
+            size="large"
+            color="primary"
+            variant="contained"
+            onClick={handleClick}
+            fullWidth
+          >
+            Сбросить параметры поиска?
+          </Button>
         )}
       </Grid>
     </div>

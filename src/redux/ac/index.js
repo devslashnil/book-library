@@ -6,6 +6,8 @@ import {
   CHANGE_AUTHORS_FILTER,
   ADD_FAVORITE_BOOK,
   REMOVE_FAVORITE_BOOK,
+  SET_BOOK_RATING,
+  CHANGE_SORT_FILTER,
 } from "../../constants";
 
 export function changeTitleFilter(title) {
@@ -18,6 +20,14 @@ export function changeTitleFilter(title) {
 export function sortBooks(orderConstant) {
   return {
     type: SORT_BOOKS + orderConstant,
+    payload: { orderConstant },
+  };
+}
+
+export function changeSortFilter(orderConstant) {
+  return {
+    type: CHANGE_SORT_FILTER,
+    payload: { orderConstant },
   };
 }
 
@@ -53,5 +63,12 @@ export function removeFavoriteBook(book) {
   return {
     type: REMOVE_FAVORITE_BOOK,
     payload: { book },
+  };
+}
+
+export function setBookRating(book, rating) {
+  return {
+    type: SET_BOOK_RATING,
+    payload: { book, rating },
   };
 }

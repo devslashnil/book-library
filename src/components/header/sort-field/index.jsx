@@ -12,7 +12,7 @@ import {
   RATING_ASCENDING_ORDER,
   RATING_DESCENDING_ORDER,
 } from "../../../constants";
-import { sortBooks } from "../../../redux/ac";
+import { sortBooks, changeSortFilter } from "../../../redux/ac";
 
 const sortTypes = [
   {
@@ -61,6 +61,7 @@ export default function SortField() {
   const handleChange = (event) => {
     setSortType(event.target.value);
     dispatch(sortBooks(event.target.value));
+    dispatch(changeSortFilter(event.target.value));
   };
 
   return (
